@@ -9,12 +9,9 @@ dotenv.config();
 
 //database Connection
 mongoose
-  .connect(process.env.MONGO_CONNECTION_STRING, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGO_CONNECTION_STRING)
   .then(() => {
-    console.log("Connection Was Successful");
+    console.log("Database Connection Was Successful");
   })
   .catch((err) => console.log(err));
 
