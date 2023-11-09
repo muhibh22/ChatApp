@@ -2,13 +2,13 @@
 const express = require("express");
 
 //internal exports
-const { getLogin } = require("../controller/loginController");
+const { getUsers } = require("../controller/usersController");
 const decorateHtmlResponse = require("../middlewares/common/decorateHtmlResponse");
 
 const router = express.Router();
 
-//login page
+//Users page
 
-router.get("/", decorateHtmlResponse("Login"), getLogin);
+router.get("/", decorateHtmlResponse("Users"), getUsers);
 
 module.exports = router;
