@@ -1,26 +1,28 @@
-//getrUsers Page
-
-//external imports
-const bycrypt = require("bcrypt");
+// external imports
+const bcrypt = require("bcrypt");
 const { unlink } = require("fs");
 const path = require("path");
 
-//internal imports
-
+// internal imports
 const User = require("../models/People");
 
+// get users page
 async function getUsers(req, res, next) {
   try {
     const users = await User.find();
     res.render("users", {
       users: users,
     });
-  } catch (err) {}
+  } catch (err) {
+    next(err);
+  }
 }
 
-async function addUsers(req, res, next) {
+// add user
+async function addUser(req, res, next) {
   let newUser;
-  const hashedPassword = await bycrypt.hash(req.body.password, 10);
+  const hashedPassword = await bcrypt.hash(req.body.password, 10);
+
   if (req.files && req.files.length > 0) {
     newUser = new User({
       ...req.body,
@@ -34,28 +36,31 @@ async function addUsers(req, res, next) {
     });
   }
 
-  //save user or send error
+  // save user or send error
   try {
     const result = await newUser.save();
     res.status(200).json({
-      message: "User was added successfully",
+      message: "User was added successfully!",
     });
   } catch (err) {
     res.status(500).json({
       errors: {
         common: {
-          msg: "Unknows error occured",
+          msg: "Unknown error occured!",
         },
       },
     });
   }
 }
-//remove user
+
+// remove user
 async function removeUser(req, res, next) {
   try {
     const user = await User.findByIdAndDelete({
       _id: req.params.id,
     });
+
+    // remove user avatar if any
     if (user.avatar) {
       unlink(
         path.join(__dirname, `/../public/uploads/avatars/${user.avatar}`),
@@ -64,6 +69,7 @@ async function removeUser(req, res, next) {
         }
       );
     }
+
     res.status(200).json({
       message: "User was removed successfully!",
     });
@@ -77,4 +83,9 @@ async function removeUser(req, res, next) {
     });
   }
 }
-module.exports = { getUsers, addUsers, removeUser };
+
+module.exports = {
+  getUsers,
+  addUser,
+  removeUser,
+};
