@@ -9,13 +9,13 @@
 /* css custom properties */
 :root {
   --primary: #171c2a;
-  --secondary: #11141f;
-  --tertiary: #1f222e;
+  --secondary: #1f3a4d;
+  --tertiary: #2b3647;
   --dark: #0e0e12;
-  --green: rgb(45, 179, 179);
-  --blue: #00b3bd;
-  --light: #fff;
-  --red: indianred;
+  --green: #44bba4;
+  --blue: #008ba3;
+  --light: #e5e5e5;
+  --red: #ff6f61;
 }
 
 /* common global styles */
@@ -32,10 +32,13 @@ body {
 }
 
 html {
-  font-family: Arial, Helvetica, sans-serif;
-  background: url("../images/background.jpg") no-repeat center center fixed;
+  font-family: "Lato", sans-serif;
+  background: linear-gradient(to right, var(--blue) 0%, var(--green) 100%);
+  font-size: 16px;
+  background-image: url("../images/background.jpg");
   background-size: cover;
-  font-size: 10px;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 body {
@@ -79,7 +82,7 @@ input.error {
 input[type="submit"] {
   margin: 2rem auto;
   width: 200px;
-  background: linear-gradient(to right, var(--green), var(--blue));
+  background: var(--blue);
   cursor: pointer;
   font-weight: 600;
   transition: transform 0.1s ease-in-out;
@@ -87,6 +90,26 @@ input[type="submit"] {
 
 input[type="submit"]:active {
   transform: scale(0.99);
+}
+
+.nothing {
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-content: center;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 2.5rem;
+}
+
+.nothing img {
+  width: 100%;
+  max-width: 120px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .nothing {
+    display: none;
+  }
 }
 
 /* modal relayed styles */
@@ -156,6 +179,45 @@ input[type="submit"]:active {
   color: #fff;
 }
 
+.search_users {
+  display: none;
+  background: var(--secondary);
+  outline: none;
+  padding: 15px;
+  border: 1px solid var(--dark);
+  color: var(--light);
+  border-radius: 6px;
+  font-size: 1.2rem;
+  position: absolute;
+  top: 130px;
+  width: 82%;
+  height: auto;
+}
+
+.search_users ul {
+  list-style-type: none;
+}
+
+.search_users ul > li {
+  background: var(--primary);
+  padding: 7px;
+  border: 1px solid var(--dark);
+  border-radius: 6px;
+  width: 100%;
+  height: auto;
+}
+
+.search_users .user {
+  display: grid;
+  grid-template-columns: 30px 1fr;
+  align-items: center;
+}
+
+.search_users .avatar img {
+  width: 24px;
+  height: 24px;
+}
+
 /* modal related responsive styles */
 
 @media only screen and (max-width: 600px) {
@@ -191,6 +253,25 @@ input[type="submit"]:active {
   text-decoration: none;
 }
 
+.menu img {
+  width: 20px;
+  height: 20px;
+  vertical-align: middle;
+  border-radius: 100%;
+}
+
+@media only screen and (max-width: 800px) {
+  .menu {
+    min-width: 90%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .menu {
+    width: 80%;
+  }
+}
+
 /* inbox related styles */
 
 #chat-container {
@@ -202,9 +283,8 @@ input[type="submit"]:active {
     /275px 1fr;
   min-width: 800px;
   max-width: 1000px;
-  max-height: 800px;
   width: 100%;
-  height: 95vh;
+  height: calc(100vh - 70px);
   background: var(--primary);
   border-radius: 10px;
 }
@@ -291,7 +371,8 @@ input[type="submit"]:active {
   font-size: 1rem;
 }
 
-.conversation-message {
+.conversation-date {
+  font-size: 1rem;
   grid-column: span 2;
   padding-left: 5px;
   white-space: nowrap;
@@ -361,7 +442,7 @@ input[type="submit"]:active {
 
 .message-row {
   display: grid;
-  grid-template-columns: 70%;
+  /* grid-template-columns: 70%; */
   margin-bottom: 20px;
 }
 
@@ -377,8 +458,10 @@ input[type="submit"]:active {
   justify-content: end;
 }
 
-.your-message .message-content {
+.you-message .message-content {
   justify-items: end;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-column-gap: 15px;
 }
 
 .other-message {
@@ -386,11 +469,11 @@ input[type="submit"]:active {
 }
 
 .other-message .message-content {
-  grid-template-columns: 48px 1fr;
+  grid-template-columns: 48px 1fr 1fr;
   grid-column-gap: 15px;
 }
 
-.message-row img {
+.message-row img:first-of-type {
   border-radius: 100%;
   grid-row: span 2;
 }
@@ -431,6 +514,7 @@ input[type="submit"]:active {
   border-top: 2px solid rgba(0, 0, 0, 0.25);
   padding-left: 10px;
   padding-right: 22px;
+  visibility: hidden;
 }
 
 #chat-form input {
@@ -438,7 +522,7 @@ input[type="submit"]:active {
   outline: none;
   padding: 15px;
   border: 2px solid var(--dark);
-  color: #330;
+  color: rgba(255, 255, 255, 0.5);
   border-radius: 6px;
   font-size: 1.4rem;
 }
@@ -490,11 +574,10 @@ input[type="submit"]:active {
 /* login related styles */
 #login-container {
   display: grid;
-  min-width: 800px;
+  /* min-width: 800px; */
   max-width: 1000px;
-  max-height: 800px;
-  width: 60%;
-  height: 90vh;
+  width: 100%;
+  height: calc(100vh - 70px);
   background: var(--primary);
   border-radius: 10px;
   grid-template-areas:
@@ -573,9 +656,8 @@ input[type="submit"]:active {
   align-items: center;
   min-width: 800px;
   max-width: 1000px;
-  max-height: 800px;
   width: 100%;
-  height: 95vh;
+  height: calc(100vh - 70px);
   background: var(--primary);
   border-radius: 10px;
   padding: 4rem 3rem;
