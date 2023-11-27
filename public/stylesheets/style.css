@@ -35,7 +35,7 @@ html {
   font-family: "Lato", sans-serif;
   background: linear-gradient(to right, var(--blue) 0%, var(--green) 100%);
   font-size: 16px;
-  background-image: url("../images/background.jpg");
+  background-image: url("../images/background.png");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -228,36 +228,38 @@ input[type="submit"]:active {
 
 /* menu related styles */
 .menu {
-  background: white;
-  display: grid;
-  grid-template-columns: repeat(3, auto);
-  justify-content: end;
-  align-content: center;
-  height: 40px;
-  width: auto;
+  background: #2b3647; /* Dark blue background */
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 60px;
+  padding: 0 20px;
+  border-radius: 8px; /* Rounded corners */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle box shadow for depth */
 }
 
 .menu-item {
-  font-size: 14px;
-  justify-self: end;
-  padding: 0 10px;
-  color: var(--primary);
+  font-size: 16px;
+  margin-left: 20px;
+  color: #e5e5e5; /* Light gray text color */
+  text-decoration: none;
+  transition: color 0.3s ease; /* Smooth transition for color change */
 }
 
-.menu-item:not(:last-child) {
-  border-right: 1px solid var(--tertiary);
+.menu-item:hover {
+  color: #44bba4; /* Change text color on hover */
 }
 
 .menu a {
-  color: var(--primary);
+  color: #e5e5e5; /* Light gray text color */
   text-decoration: none;
 }
 
 .menu img {
-  width: 20px;
-  height: 20px;
-  vertical-align: middle;
-  border-radius: 100%;
+  width: 24px;
+  height: 24px;
+  margin-left: 10px;
+  border-radius: 50%;
 }
 
 @media only screen and (max-width: 800px) {
